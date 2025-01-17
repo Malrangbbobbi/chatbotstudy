@@ -25,6 +25,7 @@
 
 
 import streamlit as st
+import StreamingStdOutCallbackHandler
 
 from langchain.callbacks import StreamingStdOutCallbackHandler
 from langchain.document_loaders import PyPDFLoader
