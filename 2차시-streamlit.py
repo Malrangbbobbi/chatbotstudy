@@ -19,6 +19,7 @@
 
 
 #!pip install streamlit_chat
+#!pip install langchain
 
 
 # In[16]:
