@@ -1,6 +1,5 @@
-langchain==0.0.318
+langchain
 openai
 streamlit
 streamlit_chat
 chromadb
-pysqlite3-binary
