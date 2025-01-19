@@ -23,6 +23,30 @@
 
 # In[16]:
 
+import subprocess
+import sys
+
+# 필요한 패키지를 설치하는 함수
+def install_package(package):
+    try:
+        __import__(package)  # 패키지 임포트 시도
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        print(f"{package} 설치 완료!")
+
+# 필요한 패키지 리스트
+required_packages = [
+    "streamlit",
+    "streamlit_chat",
+    "langchain",
+    "openai",
+    "langchain-openai"
+]
+
+# 각 패키지를 설치
+for package in required_packages:
+    install_package(package)
+
 
 import streamlit as st
 
