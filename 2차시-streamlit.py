@@ -46,7 +46,7 @@ from PIL import Image
 from io import BytesIO
 
 # Streamlit 앱에서 보안 비밀 값 가져오기
-api_key = st.secrets["default"]["api_key"]
+api_key = st.secrets["api_key"]
 
 # 실시간으로 대답할 수 있게 하는 핸들러
 class StreamHandler(BaseCallbackHandler):
