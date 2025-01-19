@@ -37,7 +37,6 @@ def install_package(package):
 # 필요한 패키지 리스트
 required_packages = [
     "streamlit",
-    "streamlit_chat",
     "langchain",
     "openai",
     "langchain-openai"
