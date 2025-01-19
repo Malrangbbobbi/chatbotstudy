@@ -3,7 +3,7 @@ from PyPDF2 import PdfReader
 import openai
 
 # OpenAI API Key 설정
-openai.api_key = st.secrets["openai_api_key"]
+api_key = st.secrets["api_key"]
 
 # PDF 텍스트 읽기 함수
 def extract_text_from_pdf(pdf_file):
