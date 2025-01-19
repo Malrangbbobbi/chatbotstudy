@@ -19,14 +19,12 @@
 
 
 #!pip install streamlit_chat
-#!pip install langchain
 
 
 # In[16]:
 
 
 import streamlit as st
-import StreamingStdOutCallbackHandler
 
 from langchain.callbacks import StreamingStdOutCallbackHandler
 from langchain.document_loaders import PyPDFLoader
