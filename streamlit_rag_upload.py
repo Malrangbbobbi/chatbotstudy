@@ -9,7 +9,11 @@ from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import Chroma
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.runnable import RunnablePassthrough
-from langchain.output_parsers import StrOutputParser
+from langchain.schema.output_parsers import BaseOutputParser
+
+class SimpleOutputParser(BaseOutputParser):
+    def parse(self, text: str):
+        return text
 
 #Chroma tenant 오류 방지 위한 코드
 import chromadb
