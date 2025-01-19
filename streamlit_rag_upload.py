@@ -8,8 +8,13 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import Chroma
 from langchain.prompts import ChatPromptTemplate
-from langchain.output_parsers import StrOutputParser  # 여기서 OutputParser는 StrOutputParser로 대체됨
-from langchain.chains.base import RunnablePassthrough
+from langchain.schema import OutputParser  # 변경된 부분
+from langchain.schema.runnable import RunnablePassthrough  # 필요한 경우 추가
+
+# OutputParser 대체
+class SimpleOutputParser(OutputParser):
+    def parse(self, text: str):
+        return text.strip()  # 단순히 문자열을 리턴
 
 
 #Chroma tenant 오류 방지 위한 코드
