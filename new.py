@@ -64,9 +64,6 @@ if uploaded_pdf is not None:
                 st.success("응답:")
                 st.write(response)
 
-if __name__ == "__main__":
-    main()
-
 
 
 
