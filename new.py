@@ -2,7 +2,7 @@ import streamlit as st
 from PyPDF2 import PdfReader
 import openai
 
-api_key = st.secrets["api_key"]
+api_key = st.secrets["openai.api_key"]
 
 # PDF 텍스트 읽기 함수
 def extract_text_from_pdf(pdf_file):
