@@ -26,7 +26,7 @@
 
 import streamlit as st
 
-from langchain.callbacks import StreamingStdOutCallbackHandler
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.document_loaders import PyPDFLoader
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains import (StuffDocumentsChain, LLMChain,
