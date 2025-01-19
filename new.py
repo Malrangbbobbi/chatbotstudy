@@ -3,15 +3,18 @@ from PyPDF2 import PdfReader
 import openai
 
 # OpenAI API Key 설정
-api_key = st.secrets["api_key"]
+openai.api_key = st.secrets["api_key"]
 
 # PDF 텍스트 읽기 함수
 def extract_text_from_pdf(pdf_file):
-    reader = PdfReader(pdf_file)
-    text = ""
-    for page in reader.pages:
-        text += page.extract_text()
-    return text
+    try:
+        reader = PdfReader(pdf_file)
+        text = ""
+        for page in reader.pages:
+            text += page.extract_text()
+        return text
+    except Exception as e:
+        return f"Error reading PDF: {str(e)}"
 
 # OpenAI ChatGPT를 이용한 응답 생성 함수
 def generate_response(prompt, context):
@@ -25,36 +28,41 @@ def generate_response(prompt, context):
             ]
         )
         return response['choices'][0]['message']['content']
+    except openai.error.OpenAIError as e:
+        return f"OpenAI API Error: {str(e)}"
     except Exception as e:
-        return f"Error generating response: {str(e)}"
+        return f"Unexpected Error: {str(e)}"
 
-# Streamlit 앱 인터페이스
-def main():
-    st.title("PDF 기반 챗봇")
-    st.write("PDF 파일을 업로드하고 내용을 기반으로 질문하세요.")
+# Streamlit 앱 시작
+st.title("PDF 기반 Q&A")
 
-    # PDF 업로드 위젯
-    uploaded_file = st.file_uploader("PDF 파일 업로드", type="pdf")
+# PDF 파일 업로드
+uploaded_pdf = st.file_uploader("PDF 파일을 업로드하세요", type=["pdf"])
 
-    if uploaded_file is not None:
-        # PDF 텍스트 추출
-        with st.spinner("PDF에서 텍스트를 추출 중입니다..."):
-            pdf_text = extract_text_from_pdf(uploaded_file)
+if uploaded_pdf is not None:
+    # PDF 내용 추출
+    with st.spinner("PDF에서 텍스트를 추출 중입니다..."):
+        pdf_text = extract_text_from_pdf(uploaded_pdf)
 
-        st.success("텍스트 추출 완료!")
-        st.write("PDF 내용 미리보기:")
-        st.text_area("추출된 텍스트", pdf_text, height=200)
+    if pdf_text.startswith("Error"):
+        st.error(pdf_text)
+    else:
+        st.text_area("PDF 내용:", pdf_text, height=200)
 
-        # 챗봇 인터페이스
-        st.write("### 질문을 입력하세요:")
-        user_input = st.text_input("질문")
+        # 사용자 입력 프롬프트
+        user_prompt = st.text_input("질문을 입력하세요:")
 
-        if user_input:
-            with st.spinner("답변 생성 중..."):
-                response = generate_response(user_input, pdf_text)
+        if user_prompt:
+            # 응답 생성
+            with st.spinner("ChatGPT가 응답을 생성 중입니다..."):
+                response = generate_response(user_prompt, pdf_text)
 
-            st.write("### 답변:")
-            st.write(response)
+            # 결과 출력
+            if response.startswith("Error"):
+                st.error(response)
+            else:
+                st.success("응답:")
+                st.write(response)
 
 if __name__ == "__main__":
     main()
