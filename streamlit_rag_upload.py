@@ -8,7 +8,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import Chroma
 from langchain.prompts import ChatPromptTemplate
-from langchain.schema import OutputParser  # 변경된 부분
+from langchain.output_parsers import BaseOutputParser
 from langchain.schema.runnable import RunnablePassthrough  # 필요한 경우 추가
 
 # OutputParser 대체
