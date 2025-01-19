@@ -3,3 +3,4 @@ openai
 streamlit
 streamlit_chat
 chromadb
+pysqlite3-binary
