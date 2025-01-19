@@ -27,11 +27,9 @@ def generate_response(prompt, context):
                 {"role": "user", "content": prompt}
             ]
         )
-        return response['choices'][0]['message']['content']
-    except openai.error.OpenAIError as e:
-        return f"OpenAI API Error: {str(e)}"
+        return response.choices[0].message.content
     except Exception as e:
-        return f"Unexpected Error: {str(e)}"
+        return f"Error generating response: {str(e)}"
 
 # Streamlit 앱 시작
 st.title("PDF 기반 Q&A")
@@ -63,6 +61,7 @@ if uploaded_pdf is not None:
             else:
                 st.success("응답:")
                 st.write(response)
+
 
 
 
