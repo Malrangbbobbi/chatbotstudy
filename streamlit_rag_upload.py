@@ -2,15 +2,15 @@ import os
 import streamlit as st
 import tempfile
 
-# LangChain 관련 모듈 올바르게 임포트
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import Chroma
 from langchain.prompts import ChatPromptTemplate
-from langchain.schema import OutputParser
+from langchain.output_parsers import StrOutputParser  # 여기서 OutputParser는 StrOutputParser로 대체됨
 from langchain.chains.base import RunnablePassthrough
+
 
 #Chroma tenant 오류 방지 위한 코드
 import chromadb
